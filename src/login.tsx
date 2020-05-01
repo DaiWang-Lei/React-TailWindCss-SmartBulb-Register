@@ -1,17 +1,45 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import SpaIcon from '@material-ui/icons/Spa';
+import { setPage, useAccount, usePassword, setName, setNickname, setPhone, setBirthday, setAccount, setPassword, setPicture } from "./state";
+import axios from "axios";
 
 const login: React.FC = () => {
-    const handleLogin = () => {
-        account.current.value === 'admin' && password.current.value === 'admin'
-            ?
-            alert('登陆成功') : alert('账号或者密码错误')
+    const handleLogin = async () => {
+        try {
+            const { data } = await axios.post('/auth', {
+                account: accountRef.current.value,
+                password: passwordRef.current.value
+            });
+            localStorage.setItem("token", data.token);
+
+            setPage('home')
+            setName(data.name)
+            setNickname(data.nickName)
+            setPhone(data.phone)
+            setBirthday(data.birthday)
+            setAccount(data.account)
+            setPassword(data.password)
+            setPicture(data.picture)
+        }
+        catch {
+            setPass(false)
+            return;
+        }
+
+
 
     }
-    const account = useRef(null)
-    const password = useRef(null)
+    const handleRegister = () => {
+        setPage("register");
+
+    }
+    const accountRef = useRef(null)
+    const passwordRef = useRef(null)
+    const [account] = useAccount()
+    const [password] = usePassword()
+    const [pass, setPass] = useState(true)
     return (
         <div className='h-screen w-screen'>
             <div className='text-center font-bold text-2xl' style={{ top: '11%' }}>
@@ -23,13 +51,13 @@ const login: React.FC = () => {
                     className=' pl-5 focus:outline-none focus:shadow-outline bg-gray-200 opacity-75 w-9/12 h-14 rounded-full mb-3 outline-none py-4'
                     type="text"
                     placeholder='请输入账号'
-                    ref={account}
+                    ref={accountRef}
                 />
                 <input
                     className='pl-5 focus:outline-none focus:shadow-outline bg-gray-200 opacity-75  rounded-full w-9/12 h-14 outline-none py-4'
                     type="password"
                     placeholder='请输入密码'
-                    ref={password}
+                    ref={passwordRef}
                 />
             </div>
             <div style={{ top: '25%' }}>
@@ -40,10 +68,15 @@ const login: React.FC = () => {
                     <ArrowForwardIcon />
                 </div>
             </div>
+            {
+                pass ? <div /> : <div className='ml-32 mt-12 font-bold text-red-500'>账号或密码错误</div>
+
+            }
+
             <div className='flex justify-around text-xs font-bold' style={{ top: '50%' }}>
                 <span >忘记密码</span>
                 <span className='opacity-50'>｜</span>
-                <span >用户注册</span>
+                <span onClick={handleRegister} >用户注册</span>
             </div>
         </div>
     );

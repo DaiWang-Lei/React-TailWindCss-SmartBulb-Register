@@ -8,11 +8,17 @@ import { useTheme } from '@material-ui/core/styles';
 import { Switch } from '@material-ui/core';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import PowerIcon from '@material-ui/icons/Power';
+import ToysIcon from '@material-ui/icons/Toys';
+import HotTubIcon from '@material-ui/icons/HotTub';
+import axios from 'axios'
 
 const ResponsiveDialog: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = React.useState('lightyellow')
   const [title, setTitle] = React.useState('智能灯泡')
+  const [icon, setIcon] = React.useState(<HotTubIcon />)
+
+  const [online, setOnline] = React.useState(false)
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -24,24 +30,24 @@ const ResponsiveDialog: React.FC = () => {
   const item: Array<string> = ['定时', '固件更新', '设备信息', '帮助']
   const equipment = [{
     id: 1,
-    img: <EmojiObjectsIcon></EmojiObjectsIcon>,
+    icon: <EmojiObjectsIcon />,
     text: '智能灯泡',
     online: true
   }, {
     id: 2,
-    img: <PowerIcon />,
+    icon: <PowerIcon />,
     text: '智能插座',
     online: false
   },
   {
     id: 3,
-    img: <PowerIcon />,
-    text: '智能插座',
-    online: false
+    icon: <ToysIcon />,
+    text: '智能风扇',
+    online: true
   }, {
     id: 4,
-    img: <PowerIcon />,
-    text: '智能插座',
+    icon: <HotTubIcon />,
+    text: '智能浴缸',
     online: false
   }
   ]
@@ -53,14 +59,21 @@ const ResponsiveDialog: React.FC = () => {
     setState({ ...state, [event.target.name]: event.target.checked });
     if (state.checkedB == true) {
       // 在这里发送关灯请求
-      console.log('灯灭了')
+      // console.log('灯灭了')
       setColor('lightyellow')
+      axios.get('/close')
+        .then(res => {
+          console.log(res)
+        })
 
     } else {
       // 这里发送亮灯请求
-      console.log('灯亮了')
+      // console.log('灯亮了')
       setColor('yellow')
-
+      axios.get('/open')
+        .then(res => {
+          console.log(res)
+        })
     }
   };
   return (
@@ -72,10 +85,12 @@ const ResponsiveDialog: React.FC = () => {
             onClick={() => {
               setOpen(true);
               setTitle(val.text)
+              setOnline(val.online)
+              setIcon(val.icon)
             }}
             key={val['id']}>
             <div className=' md:m-4 m-2'>
-              {val['img']}
+              {val['icon']}
             </div>
             <div className='md:m-4 ml-2'>{val['text']}</div>
             {
@@ -97,7 +112,7 @@ const ResponsiveDialog: React.FC = () => {
 
         <DialogContent>
           {
-            title !== '智能灯泡' ? <> <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            !online ? <> <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
               <strong className="font-bold">设备离线，</strong>
               <span className="block sm:inline">请连接后重试。</span>
               <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
@@ -109,12 +124,15 @@ const ResponsiveDialog: React.FC = () => {
                 <div className='text-center mb-3'>
                   {title}
                 </div>
-                <div className='w-full  h-32 bg-blue-400 rounded-lg'>
+                {/* 这里有问题😫 */}
+                <div className='w-full  h-32 bg-blue-400 rounded-lg' >
                   {
                     title == '智能灯泡' ?
                       <EmojiObjectsIcon style={{ width: 325, height: 100, color }} />
                       :
-                      <PowerIcon style={{ width: 325, height: 100, color }} />}
+                      <ToysIcon style={{ width: 325, height: 100, color }} />
+
+                  }
                 </div>
                 <div className='my-4'>设备控制</div>
                 <div className='w-full bg-gray-500 flex justify-between items-center rounded-lg'>
@@ -128,9 +146,10 @@ const ResponsiveDialog: React.FC = () => {
                 </div>
 
                 {item.map((val, i) => {
-                  return (<div className=
-                    'my-3 w-full bg-gray-500 h-10 rounded-lg flex items-center justify-between  px-2' key={i}
-                  >{val} <p>></p> </div>)
+                  return (<div
+                    className='my-3 w-full bg-gray-500 h-10 rounded-lg flex items-center justify-between  px-2'
+                    key={i}
+                  >{val}<p>></p> </div>)
                 })
                 }
               </>

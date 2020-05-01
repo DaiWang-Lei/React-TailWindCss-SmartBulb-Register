@@ -788,6 +788,39 @@
   resolved "https://registry.npmjs.org/@juggle/resize-observer/-/resize-observer-3.1.3.tgz#d7373eb9a1afc371342b8cf1a07e34368f3d65d7"
   integrity sha512-y7qc6SzZBlSpx8hEDfV0S9Cx6goROX/vBhS2Ru1Q78Jp1FlCMbxp7UcAN90rLgB3X8DSMBgDFxcmoG/VfdAhFA==
 
+"@lincode/events@^1.0.9":
+  version "1.0.10"
+  resolved "https://registry.npm.taobao.org/@lincode/events/download/@lincode/events-1.0.10.tgz#bcbf610dd17a5cc1ab48135dae83fac084063fb4"
+  integrity sha1-vL9hDdF6XMGrSBNdroP6wIQGP7Q=
+  dependencies:
+    "@lincode/promiselikes" "^1.0.0"
+    "@lincode/utils" "^1.0.0"
+
+"@lincode/promiselikes@^1.0.0", "@lincode/promiselikes@^1.0.7":
+  version "1.0.11"
+  resolved "https://registry.npm.taobao.org/@lincode/promiselikes/download/@lincode/promiselikes-1.0.11.tgz#7a780448164743c7cc41258953879933edf6192a"
+  integrity sha1-engESBZHQ8fMQSWJU4eZM+32GSo=
+  dependencies:
+    "@lincode/utils" "^1.0.0"
+
+"@lincode/react-global-state@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.npm.taobao.org/@lincode/react-global-state/download/@lincode/react-global-state-1.0.19.tgz#9905ff81176e8dfdb7fb99b453b6ab26768c7b8c"
+  integrity sha1-mQX/gRdujf23+5m0U7arJnaMe4w=
+  dependencies:
+    "@lincode/events" "^1.0.9"
+    "@lincode/promiselikes" "^1.0.7"
+    "@lincode/utils" "^1.1.17"
+    react "^16.12.0"
+
+"@lincode/utils@^1.0.0", "@lincode/utils@^1.1.17":
+  version "1.1.23"
+  resolved "https://registry.npm.taobao.org/@lincode/utils/download/@lincode/utils-1.1.23.tgz#1506a54ee38066db01134d55759e7c56ff1844d1"
+  integrity sha1-FQalTuOAZtsBE01VdZ58Vv8YRNE=
+  dependencies:
+    "@types/lodash.once" "^4.1.6"
+    lodash.once "^4.1.1"
+
 "@material-ui/core@^4.9.9":
   version "4.9.9"
   resolved "https://registry.npmjs.org/@material-ui/core/-/core-4.9.9.tgz#902dc37eeb415dd3288feb2c92e0dc27d9caed48"
@@ -870,6 +903,13 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
+"@types/axios@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.npm.taobao.org/@types/axios/download/@types/axios-0.14.0.tgz#ec2300fbe7d7dddd7eb9d3abf87999964cafce46"
+  integrity sha1-7CMA++fX3d1+udOr+HmZlkyvzkY=
+  dependencies:
+    axios "*"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -893,6 +933,18 @@
   version "4.7.5"
   resolved "https://registry.npm.taobao.org/@types/history/download/@types/history-4.7.5.tgz#527d20ef68571a4af02ed74350164e7a67544860"
   integrity sha1-Un0g72hXGkrwLtdDUBZOemdUSGA=
+
+"@types/lodash.once@^4.1.6":
+  version "4.1.6"
+  resolved "https://registry.npm.taobao.org/@types/lodash.once/download/@types/lodash.once-4.1.6.tgz#f6ea46e3426bc3494b72a45e65efed440103b967"
+  integrity sha1-9upG40Jrw0lLcqReZe/tRAEDuWc=
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.150"
+  resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.150.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.150.tgz#649fe44684c3f1fcb6164d943c5a61977e8cf0bd"
+  integrity sha1-ZJ/kRoTD8fy2Fk2UPFphl36M8L0=
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -1325,6 +1377,13 @@ autoprefixer@*, autoprefixer@^9.4.5:
     num2fraction "^1.2.2"
     postcss "^7.0.27"
     postcss-value-parser "^4.0.3"
+
+axios@*, axios@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.npm.taobao.org/axios/download/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha1-PqNsXYgY0NX4qKl6bTa4bNwAyyc=
+  dependencies:
+    follow-redirects "1.5.10"
 
 babel-loader@8:
   version "8.1.0"
@@ -2083,6 +2142,13 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/debug/download/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
+  dependencies:
+    ms "2.0.0"
+
 debug@^3.0.0, debug@^3.1.1, debug@^3.2.5:
   version "3.2.6"
   resolved "https://registry.npmjs.org/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -2714,6 +2780,13 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha1-e3qfmuov3/NnhqlP9kPtB/T/Xio=
+  dependencies:
+    debug "=3.1.0"
 
 follow-redirects@^1.0.0:
   version "1.11.0"
@@ -3729,6 +3802,11 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lodash.once@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npm.taobao.org/lodash.once/download/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
+  integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
 
 lodash.toarray@^4.4.0:
   version "4.4.0"
@@ -4827,7 +4905,7 @@ react-use-measure@^2.0.0:
   dependencies:
     debounce "^1.2.0"
 
-react@^16.13.1:
+react@^16.12.0, react@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==

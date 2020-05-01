@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import ReactSwiper from 'reactjs-swiper';
 //@ts-ignore
-import tu1 from './img/tu1.jpg'
+import tu1 from '../assets/tu1.jpg'
 //@ts-ignore
-import fui from './img/fui.jpg'
+import fui from '../assets/fui.jpg'
 //@ts-ignore
-import iot from './img/iot.jpg'
+import iot from '../assets/iot.jpg'
 //@ts-ignore
-import network from './img/network.jpg'
+import network from '../assets/network.jpg'
 
 
 

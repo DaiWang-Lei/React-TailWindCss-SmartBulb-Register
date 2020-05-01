@@ -4,7 +4,8 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import SpaIcon from '@material-ui/icons/Spa';
 import React, { useState } from "react";
 import Picker from "./picker";
-
+import { setPage, setName, setNickname, setBirthday, setPhone, setPassword, setAccount } from "./state";
+import axios from "axios";
 
 const item = {
     name: {
@@ -38,7 +39,7 @@ const item = {
         test: '请输入密码',
         type: "password",
     },
-   
+
 }
 const validateNickName = (value: string) => /^[\u0391-\uFFE5A-Za-z0-9 _]{4,20}$/.test(value)
 const validatePhone = (value: string) => /^1[3456789]\d{9}$/.test(value)
@@ -67,7 +68,7 @@ const validators = {
         validate: validatePassword,
         error: "请输入合法的密码"
     },
-    
+
 };
 const register: React.FC = () => {
     const [info, setInfo] = useState({
@@ -82,6 +83,8 @@ const register: React.FC = () => {
 
     const [error, setError] = useState("");
     const [keyClicked, setKeyClicked] = useState('')
+    const [status, setStatus] = useState('')
+
     return (
 
         <div className='h-screen w-screen'>
@@ -125,6 +128,7 @@ const register: React.FC = () => {
                                                     [key]: e.target.value
                                                 });
                                                 setKeyClicked(key)
+                                                setStatus('200')
                                             }
                                             }
                                             onKeyUp={() => {
@@ -139,17 +143,31 @@ const register: React.FC = () => {
                 }
             </div>
 
-            <div>  {
-                console.log()
+            {
+                status == '403' ? <div style={{ top: '-59%' }} className='text-red-500 text-center'>账号已存在，请重新输入！</div> : <div />
             }
 
-            </div>
             <div style={{ top: '5%' }}>
                 <div
                     className='flex justify-center items-center bg-blue-400 mt-10 w-40 rounded-lg h-16 text-white font-bold m-auto text-xl'
-                    onClick={() => {
-                        console.log(info)
-                        
+                    onClick={async () => {
+                        try {
+                            const { data: token } = await axios.post("/user", info)
+                            localStorage.setItem("token", token)
+
+                            setPage('home')
+                            setName(info.name)
+                            setNickname(info.nickName)
+                            setPhone(info.phone)
+                            setBirthday(info.birthday)
+                            setAccount(info.account)
+                            setPassword(info.password)
+                        }
+                        catch (err) {
+                            setStatus(err.response.status);
+                        }
+
+
                     }}
                 >
                     注册

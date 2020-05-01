@@ -1,47 +1,64 @@
 // 导入react和App.css
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import SimpleModal from "./modal";
+import Home from "./home/Home";
+import Login from './login'
+import Register from './register'
+import Profile from './mine/Profile'
+import axios from 'axios'
+import { usePage, setPage, setName, setNickname, setPhone, setBirthday, setAccount, setPassword } from "./state";
 import BottomBar from './bottomBar'
-import ReactSwiperExample from "./swiper";
-
 
 const App: React.FC = () => {
-    return (<>
-        <div className='w-screen h-screen  relative'>
-            <div className='bg-blue-400 text-white opcity-3 h-48 leading-9 rounded-b-lg '>
-                <span className='m-3 text-2xl'>我的家</span>
-            </div>
-            <div className=' flex justify-center'>
-                <div className=' w-10/12 md:w-2/3 md:h-64 h-40 overflow-hidden rounded-lg' style={{ top: -120 }}>
-                    <ReactSwiperExample></ReactSwiperExample>
+    const [page] = usePage();
 
-                </div>
-            </div>
-            <div>
-                <div style={{ top: -100 }}>
-                    <div className='lg:mx-20 m-3 text-xl opacity-75'>智能设备</div>
-                    <div className='m-3' >
-                        <div className='float-left w-1/2 ml-4 text-blue-500 md:ml-48 '>
-                            全部
-                            <div className='border-b-4 rounded-sm border-blue-500 w-8'></div>
+    useEffect(() => {
+        (async () => {
+            const token = localStorage.getItem("token");
+
+            if (token) {
+                const { data } = await axios.get("/user", {
+                    headers: { "Authorization": `Bearer ${token}` }
+                })
+                setPage('home')
+                setName(data.name)
+                setNickname(data.nickName)
+                setPhone(data.phone)
+                setBirthday(data.birthday)
+                setAccount(data.account)
+                setPassword(data.password)
+            }
+        })();
+    }, []);
+
+
+
+    return (
+        <>
+            {(() => {
+                if (page === "login")
+                    return <Login />;
+                else if (page === "home")
+                    return <>
+                        <Home />
+                        <div style={{ position: "fixed", bottom: 0, width: "100%" }}>
+                            <BottomBar></BottomBar>
+                        </div></>
+                else if (page === "register")
+                    return <Register />
+                else if (page === "profile")
+                    return <>
+                        <Profile />
+                        <div style={{ position: "fixed", bottom: 0, width: "100%" }}>
+                            <BottomBar></BottomBar>
                         </div>
-                        <div className='opacity-50 ml-64' style={{ right: 70 }}>其他</div>
-                    </div>
+                    </>
 
-                    {/* 灯泡详情页 */}
-                    <div className='lg:mr-64'>
-                        <SimpleModal></SimpleModal>
-                    </div>
-                </div>
-                {/* 底边栏 */}
-                <div style={{top:-55}}>
-                    <BottomBar></BottomBar>
-                </div>
+                return <Login />
+            })()}
 
-            </div>
-        </div>
-    </>)
+        </>
+    )
 }
 // 导出App.tsx
 export default App;
